@@ -2,188 +2,422 @@
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>이미지 PDF + OCR 변환기 (HEIC 지원 & 드래그 순서 조정)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      이미지 PDF 변환기 | HEIC, JPG, PNG OCR 텍스트 인식 & 드래그 순서 조정
+    </title>
+    <meta
+      name="description"
+      content="HEIC, JPG, PNG 등 다양한 이미지 파일을 PDF로 변환하고, OCR 기능을 통해 텍스트를 인식합니다. 드래그 앤 드롭으로 이미지 순서를 쉽게 조절할 수 있습니다."
+    />
+    <meta
+      name="keywords"
+      content="이미지 PDF 변환, 사진 PDF, HEIC PDF, OCR, 텍스트 인식, 이미지 순서 변경, 무료 PDF 변환기, JPG PDF, PNG PDF, WEBP PDF, TIFF PDF, BMP PDF"
+    />
+    <meta name="author" content="Your Name or Company Name" />
+    <meta property="og:title" content="이미지 PDF & OCR 변환기" />
+    <meta
+      property="og:description"
+      content="HEIC, JPG, PNG 등 다양한 이미지 파일을 PDF로 변환하고, OCR 기능을 통해 텍스트를 인식합니다. 드래그 앤 드롭으로 이미지 순서를 쉽게 조절할 수 있습니다."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://www.yourwebsite.com/image-to-pdf-ocr"
+    />
+    <meta
+      property="og:image"
+      content="https://www.yourwebsite.com/images/og-image.jpg"
+    />
+    <link rel="canonical" href="https://www.yourwebsite.com/image-to-pdf-ocr" />
+    <meta name="geo.region" content="KR" />
+    <meta name="geo.placename" content="Seoul" />
+    <meta name="geo.position" content="37.5665;126.9780" />
+    <meta name="ICBM" content="37.5665, 126.9780" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
+      /* 변수 선언으로 유지보수 용이성 및 일관성 확보 */
+      :root {
+        --primary-color: #007bff; /* 파란색 계열 */
+        --primary-dark-color: #0056b3;
+        --secondary-color: #6c757d; /* 회색 계열 */
+        --background-color: #f8f9fa;
+        --card-background-color: #ffffff;
+        --border-color: #e0e0e0;
+        --text-color: #343a40;
+        --heading-color: #212529;
+        --shadow-light: rgba(0, 0, 0, 0.08);
+        --shadow-medium: rgba(0, 0, 0, 0.12);
+      }
+
       body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: #f2f5f9;
-        color: #333;
+        font-family: "Noto Sans KR", sans-serif; /* 한국어 폰트 적용 */
+        background: var(--background-color);
+        color: var(--text-color);
         margin: 0;
         padding: 2rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         min-height: 100vh;
+        line-height: 1.6;
       }
+
+      header {
+        text-align: center;
+        margin-bottom: 2rem;
+        width: 100%;
+        max-width: 700px;
+      }
+
       h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-        text-align: center;
-      }
-      p {
-        font-size: 1rem;
+        font-size: 2.5rem; /* 더 크고 눈에 띄게 */
+        color: var(--heading-color);
         margin-bottom: 1rem;
-        max-width: 600px;
-        text-align: center;
+        font-weight: 700; /* 더 두껍게 */
       }
+
+      p {
+        font-size: 1.1rem; /* 설명 텍스트 크기 증가 */
+        margin-bottom: 1.5rem;
+        max-width: 700px;
+        text-align: center;
+        color: var(--secondary-color);
+      }
+
+      main {
+        width: 100%;
+        max-width: 700px; /* 컨텐츠 영역 최대 너비 조정 */
+        background: var(--card-background-color);
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px var(--shadow-light); /* 그림자 강화 */
+        box-sizing: border-box;
+      }
+
       #dropZone {
         width: 100%;
-        max-width: 600px;
-        height: 150px;
-        border: 2px dashed #ccc;
-        border-radius: 8px;
+        height: 180px; /* 높이 증가 */
+        border: 3px dashed var(--border-color); /* 테두리 두께 증가 */
+        border-radius: 10px;
         display: flex;
+        flex-direction: column; /* 아이콘과 텍스트를 세로로 정렬 */
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        margin: 1rem 0;
-        background: #f7f7f7;
+        margin: 1.5rem 0;
+        background: #fdfdff; /* 배경색 밝게 */
         user-select: none;
+        transition: all 0.3s ease; /* 호버 효과 추가 */
+        color: var(--secondary-color);
+        font-size: 1.1rem;
       }
+
+      #dropZone:hover {
+        border-color: var(--primary-color);
+        background: #f0f7ff;
+        color: var(--primary-dark-color);
+      }
+
       #dropZone.dragging {
-        background: #e0e0e0;
+        background: #e0eaff; /* 드래그 중 배경색 변경 */
+        border-color: var(--primary-dark-color);
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
       }
+
+      .drop-icon {
+        font-size: 3rem; /* 아이콘 크기 */
+        margin-bottom: 0.8rem;
+        color: var(--primary-color);
+      }
+
       input[type="file"] {
         display: none;
       }
+
       #fileList {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
-        margin: 1rem 0;
+        gap: 0.7rem; /* 간격 증가 */
+        margin-top: 1.5rem;
         width: 100%;
-        max-width: 600px;
         list-style: none;
         padding: 0;
       }
+
       .file-item {
-        background: white;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        border: 1px solid #ccc;
+        background: var(--card-background-color);
+        padding: 0.7rem 1.2rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
         display: flex;
         justify-content: space-between;
         align-items: center;
         cursor: grab;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px var(--shadow-light);
       }
+
+      .file-item:hover {
+        background: #f0f0f0;
+      }
+
       .file-item:active {
         cursor: grabbing;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px var(--shadow-medium);
       }
+
       .file-name {
         flex-grow: 1;
         user-select: text;
+        font-size: 0.95rem;
+        color: var(--text-color);
       }
-      button.convert-btn {
-        background: #0070f3;
-        color: white;
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
+
+      .remove-file {
+        background: none;
         border: none;
-        border-radius: 8px;
+        color: #dc3545; /* 빨간색 X 버튼 */
+        font-size: 1.2rem;
         cursor: pointer;
-        transition: background 0.3s ease;
-        margin-top: 1rem;
+        margin-left: 1rem;
+        transition: color 0.2s ease;
+      }
+
+      .remove-file:hover {
+        color: #c82333;
+      }
+
+      .ocr-options {
+        margin: 2rem 0;
+        background: #fdfdfd;
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 10px var(--shadow-light);
+      }
+
+      .ocr-options label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        color: var(--heading-color);
+        cursor: pointer;
         user-select: none;
       }
+
+      .ocr-options input[type="checkbox"] {
+        margin-right: 8px;
+        transform: scale(1.2); /* 체크박스 크기 키우기 */
+        accent-color: var(--primary-color); /* 체크박스 색상 변경 */
+        cursor: pointer;
+      }
+
+      .ocr-languages {
+        margin-top: 1rem;
+        display: grid; /* 그리드 레이아웃으로 변경 */
+        grid-template-columns: repeat(
+          auto-fit,
+          minmax(120px, 1fr)
+        ); /* 반응형 그리드 */
+        gap: 15px; /* 간격 넓힘 */
+        padding-left: 25px; /* OCR 수행하기 체크박스와 정렬 */
+      }
+
+      .ocr-languages label {
+        margin-bottom: 0; /* 개별 라벨의 하단 마진 제거 */
+      }
+
+      button.convert-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 1rem 2rem; /* 버튼 패딩 증가 */
+        font-size: 1.2rem; /* 버튼 폰트 크기 증가 */
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+        margin-top: 1.5rem;
+        width: 100%; /* 너비 100%로 설정 */
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
       button.convert-btn:hover {
-        background: #005ac1;
+        background: var(--primary-dark-color);
+        transform: translateY(-2px); /* 호버 시 약간 위로 */
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.25);
       }
-      #output {
-        margin-top: 2rem;
-        max-width: 800px;
-        text-align: left;
-        background: #fff;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        white-space: pre-wrap;
+
+      button.convert-btn:disabled {
+        background: #cccccc;
+        cursor: not-allowed;
       }
+
       .progress-container {
         width: 100%;
-        max-width: 600px;
-        background: #e0e0e0;
+        background: var(--border-color);
         border-radius: 8px;
         overflow: hidden;
-        margin: 1rem 0;
-        height: 20px;
+        margin: 2rem 0;
+        height: 25px; /* 진행바 높이 증가 */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
       }
+
       .progress-bar {
         height: 100%;
         width: 0;
-        background: #0070f3;
+        background: var(--primary-color);
         transition: width 0.3s ease;
-      }
-      .ocr-options {
-        margin: 1rem 0;
-        max-width: 600px;
-        background: white;
-        padding: 1rem;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-      }
-      .ocr-options label {
-        margin-right: 1rem;
-        cursor: pointer;
-        user-select: none;
-      }
-      .ocr-languages {
-        margin-top: 0.5rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .ocr-languages label {
         display: flex;
         align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 0.9rem;
       }
-      .ocr-languages input[type="checkbox"] {
-        margin-right: 5px;
-        cursor: pointer;
+
+      #output {
+        margin-top: 2rem;
+        width: 100%;
+        background: var(--card-background-color);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px var(--shadow-light);
+        text-align: left;
+        display: none; /* 초기에는 숨김 */
+        word-break: break-word; /* 긴 단어 줄 바꿈 처리 */
+      }
+
+      #output h3 {
+        color: var(--heading-color);
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+
+      #output pre {
+        background: #f0f4f7;
+        padding: 1.2rem;
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+        max-height: 400px; /* OCR 결과 영역 높이 제한 */
+        overflow-y: auto; /* 스크롤바 추가 */
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        font-size: 0.9rem;
+        color: var(--text-color);
+      }
+
+      .download-link {
+        display: inline-block;
+        background: #28a745; /* 녹색 다운로드 버튼 */
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        transition: background 0.3s ease;
+      }
+
+      .download-link:hover {
+        background: #218838;
+      }
+
+      /* 반응형 디자인 */
+      @media (max-width: 768px) {
+        body {
+          padding: 1rem;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+        p {
+          font-size: 1rem;
+        }
+        main {
+          padding: 1.5rem;
+        }
+        #dropZone {
+          height: 150px;
+          font-size: 1rem;
+        }
+        .drop-icon {
+          font-size: 2.5rem;
+        }
+        button.convert-btn {
+          font-size: 1.1rem;
+          padding: 0.9rem 1.8rem;
+        }
+        .ocr-languages {
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        }
       }
     </style>
   </head>
   <body>
-    <h1>이미지를 PDF로 변환하고 OCR 텍스트 인식하기</h1>
-    <p>
-      JPG, PNG, HEIC, HEIF, WEBP, BMP, TIFF 등 다양한 이미지 업로드 가능.<br />
-      OCR 언어 선택 및 수행 여부 지정 가능하며, 사진 순서를 마우스로 드래그하여
-      조정할 수 있습니다.
-    </p>
+    <header>
+      <h1>📸 이미지를 PDF로 변환하고 OCR 텍스트 인식하기 📄</h1>
+      <p>
+        **HEIC, JPG, PNG, WEBP, BMP, TIFF** 등 다양한 이미지 파일을 PDF 문서로
+        변환하고, 이미지 속 텍스트를 **OCR** 기술로 추출합니다. 드래그 앤 드롭
+        또는 파일 선택으로 이미지를 업로드하고, 마우스로 순서를 손쉽게
+        조정하세요.
+      </p>
+    </header>
 
-    <div id="dropZone">여기에 이미지를 드래그하거나 클릭하여 선택하세요</div>
-    <input
-      type="file"
-      id="fileInput"
-      accept="image/*,.heic,.heif,.tiff,.bmp"
-      multiple
-    />
-
-    <ul id="fileList"></ul>
-
-    <div class="ocr-options">
-      <label><input type="checkbox" id="doOCR" checked /> OCR 수행하기</label>
-      <div class="ocr-languages">
-        <label><input type="checkbox" value="kor" checked /> 한국어</label>
-        <label><input type="checkbox" value="eng" checked /> 영어</label>
-        <label><input type="checkbox" value="jpn" /> 일본어</label>
-        <label><input type="checkbox" value="rus" /> 러시아어</label>
-        <label><input type="checkbox" value="chi_sim" /> 중국어 (간체)</label>
-        <label><input type="checkbox" value="spa" /> 스페인어</label>
+    <main>
+      <div id="dropZone">
+        <span class="drop-icon">⬆️</span>
+        여기에 이미지를 드래그하거나 클릭하여 선택하세요
       </div>
-    </div>
+      <input
+        type="file"
+        id="fileInput"
+        accept="image/*,.heic,.heif,.tiff,.bmp"
+        multiple
+      />
 
-    <button class="convert-btn" onclick="startConversion()">
-      📄 PDF로 변환 + OCR 인식
-    </button>
+      <ul id="fileList"></ul>
 
-    <div class="progress-container" style="display: none">
-      <div class="progress-bar" id="progressBar"></div>
-    </div>
+      <div class="ocr-options">
+        <label>
+          <input type="checkbox" id="doOCR" checked />
+          <span style="font-weight: bold">OCR 수행하기</span> (이미지에서 텍스트
+          추출)
+        </label>
+        <div class="ocr-languages">
+          <label><input type="checkbox" value="kor" checked /> 한국어</label>
+          <label><input type="checkbox" value="eng" checked /> 영어</label>
+          <label><input type="checkbox" value="jpn" /> 일본어</label>
+          <label><input type="checkbox" value="rus" /> 러시아어</label>
+          <label><input type="checkbox" value="chi_sim" /> 중국어 (간체)</label>
+          <label><input type="checkbox" value="spa" /> 스페인어</label>
+          <label><input type="checkbox" value="deu" /> 독일어</label>
+          <label><input type="checkbox" value="fra" /> 프랑스어</label>
+        </div>
+      </div>
 
-    <div id="output"></div>
+      <button class="convert-btn" onclick="startConversion()">
+        <span id="convertButtonText">🚀 PDF로 변환 및 OCR 인식 시작</span>
+      </button>
 
-    <!-- 라이브러리 로드 -->
+      <div class="progress-container" style="display: none">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <div id="output"></div>
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.3/dist/heic2any.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
@@ -197,6 +431,8 @@
       const progressContainer = document.querySelector(".progress-container");
       const progressBar = document.getElementById("progressBar");
       const doOCRCheckbox = document.getElementById("doOCR");
+      const convertBtn = document.querySelector(".convert-btn");
+      const convertButtonText = document.getElementById("convertButtonText");
 
       let selectedFiles = [];
 
@@ -237,9 +473,12 @@
           }
         });
         renderFileList();
+        outputDiv.style.display = "none"; // 파일 추가 시 결과 숨기기
         outputDiv.innerHTML = "";
         progressContainer.style.display = "none";
         progressBar.style.width = "0%";
+        progressBar.textContent = ""; // 진행 텍스트 초기화
+        updateConvertButtonState();
       }
 
       function renderFileList() {
@@ -248,8 +487,26 @@
           const li = document.createElement("li");
           li.className = "file-item";
           li.setAttribute("data-index", index);
-          li.innerHTML = `<span class="file-name">${file.name}</span>`;
+          li.innerHTML = `
+            <span class="file-name">${file.name}</span>
+            <button class="remove-file" data-index="${index}">&times;</button>
+          `;
           fileList.appendChild(li);
+        });
+
+        // 파일 제거 버튼 이벤트 리스너 추가
+        document.querySelectorAll(".remove-file").forEach((button) => {
+          button.addEventListener("click", (e) => {
+            const indexToRemove = parseInt(e.target.dataset.index);
+            selectedFiles.splice(indexToRemove, 1); // 배열에서 파일 제거
+            renderFileList(); // 파일 목록 다시 렌더링
+            outputDiv.style.display = "none"; // 결과 영역 숨기기
+            outputDiv.innerHTML = "";
+            progressContainer.style.display = "none";
+            progressBar.style.width = "0%";
+            progressBar.textContent = "";
+            updateConvertButtonState();
+          });
         });
       }
 
@@ -263,19 +520,32 @@
           // selectedFiles 배열도 순서 변경 반영
           const movedItem = selectedFiles.splice(oldIndex, 1)[0];
           selectedFiles.splice(newIndex, 0, movedItem);
-          renderFileList();
+          // renderFileList(); // Sortablejs가 DOM을 자동으로 업데이트하므로 다시 그릴 필요 없음
         },
       });
 
+      // 변환 버튼 활성화/비활성화 상태 업데이트
+      function updateConvertButtonState() {
+        if (selectedFiles.length > 0) {
+          convertBtn.disabled = false;
+        } else {
+          convertBtn.disabled = true;
+        }
+      }
+
       async function startConversion() {
         if (selectedFiles.length === 0) {
-          alert("최소 한 개 이상의 이미지를 선택해주세요.");
+          alert("💡 최소 한 개 이상의 이미지를 선택해주세요.");
           return;
         }
 
-        outputDiv.textContent = "";
+        outputDiv.style.display = "none"; // 이전 결과 숨기기
+        outputDiv.innerHTML = "";
         progressContainer.style.display = "block";
         progressBar.style.width = "0%";
+        progressBar.textContent = "변환 준비 중...";
+        convertBtn.disabled = true; // 변환 중 버튼 비활성화
+        convertButtonText.textContent = "변환 중... 잠시만 기다려주세요";
 
         const doOCR = doOCRCheckbox.checked;
         const languageCheckboxes = document.querySelectorAll(
@@ -284,24 +554,28 @@
         const languages =
           Array.from(languageCheckboxes)
             .map((el) => el.value)
-            .join("+") || "kor";
+            .join("+") || "kor"; // 선택된 언어가 없으면 기본으로 한국어 선택
 
         // pdf-lib로 PDF 만들기
         const pdfDoc = await PDFLib.PDFDocument.create();
 
         let fullText = "";
         for (let i = 0; i < selectedFiles.length; i++) {
+          const file = selectedFiles[i];
+          let imageDataUrl;
+
           progressBar.style.width = `${Math.round(
             (i / selectedFiles.length) * 100
           )}%`;
-
-          const file = selectedFiles[i];
-          let imageDataUrl;
+          progressBar.textContent = `이미지 변환 중 (${i + 1}/${
+            selectedFiles.length
+          })...`;
 
           try {
             imageDataUrl = await convertFileToDataURL(file);
           } catch (err) {
-            alert(`이미지 변환 중 오류 발생: ${file.name}`);
+            alert(`⚠️ 이미지 변환 중 오류 발생: ${file.name}. 스킵합니다.`);
+            console.error(err);
             continue;
           }
 
@@ -311,31 +585,68 @@
           await new Promise((resolve) => (img.onload = resolve));
 
           let pdfImage;
-          if (file.type.startsWith("image/png")) {
-            pdfImage = await pdfDoc.embedPng(imageDataUrl);
-          } else {
-            pdfImage = await pdfDoc.embedJpg(imageDataUrl);
+          try {
+            if (
+              file.type.startsWith("image/png") ||
+              imageDataUrl.startsWith("data:image/png")
+            ) {
+              pdfImage = await pdfDoc.embedPng(imageDataUrl);
+            } else {
+              pdfImage = await pdfDoc.embedJpg(imageDataUrl);
+            }
+          } catch (e) {
+            console.warn(
+              `이미지 임베딩 실패 (PNG/JPG): ${file.name}. JPEG로 재시도합니다.`,
+              e
+            );
+            // PNG가 아닐 경우 JPG로 다시 시도 (안전성)
+            try {
+              pdfImage = await pdfDoc.embedJpg(imageDataUrl);
+            } catch (e2) {
+              alert(
+                `⚠️ PDF에 이미지 추가 중 오류 발생: ${file.name}. 이 이미지는 제외됩니다.`
+              );
+              console.error("최종 이미지 임베딩 실패:", e2);
+              continue;
+            }
           }
 
-          const page = pdfDoc.addPage([pdfImage.width, pdfImage.height]);
+          // 이미지 비율에 맞춰 페이지 생성
+          const { width, height } = pdfImage.scale(1); // 원본 비율 유지
+          const page = pdfDoc.addPage([width, height]);
           page.drawImage(pdfImage, {
             x: 0,
             y: 0,
-            width: pdfImage.width,
-            height: pdfImage.height,
+            width: width,
+            height: height,
           });
 
           if (doOCR) {
+            progressBar.textContent = `OCR 인식 중 (${i + 1}/${
+              selectedFiles.length
+            })...`;
             try {
-              const text = await performOCR(imageDataUrl, languages);
-              fullText += `----- [${file.name}] -----\n` + text + "\n\n";
+              const {
+                data: { text },
+              } = await Tesseract.recognize(imageDataUrl, languages, {
+                logger: (m) => {
+                  if (m.status === "recognizing text") {
+                    progressBar.textContent = `OCR 인식 중 (${i + 1}/${
+                      selectedFiles.length
+                    }) ${Math.round(m.progress * 100)}%...`;
+                  }
+                },
+              });
+              fullText += `----- [${file.name}] -----\n` + text.trim() + "\n\n";
             } catch (e) {
-              fullText += `----- [${file.name}] -----\nOCR 실패\n\n`;
+              fullText += `----- [${file.name}] -----\n🚨 OCR 실패\n\n`;
+              console.error(`OCR 실패: ${file.name}`, e);
             }
           }
         }
 
         progressBar.style.width = `100%`;
+        progressBar.textContent = "변환 완료!";
 
         // PDF 다운로드 링크 생성
         const pdfBytes = await pdfDoc.save();
@@ -344,28 +655,37 @@
 
         const downloadLink = document.createElement("a");
         downloadLink.href = pdfUrl;
-        downloadLink.download = "converted.pdf";
-        downloadLink.textContent = "PDF 다운로드";
-        downloadLink.style.display = "inline-block";
-        downloadLink.style.marginTop = "1rem";
-        downloadLink.style.fontWeight = "bold";
-        downloadLink.style.color = "#0070f3";
-        downloadLink.style.textDecoration = "underline";
+        downloadLink.download = "converted_images_with_ocr.pdf"; // 파일명 구체화
+        downloadLink.textContent = "📥 변환된 PDF 다운로드";
+        downloadLink.className = "download-link"; // 스타일 클래스 적용
 
-        outputDiv.innerHTML = "";
+        outputDiv.innerHTML = ""; // 기존 내용 초기화
         outputDiv.appendChild(downloadLink);
+        outputDiv.style.display = "block"; // 결과 영역 표시
 
-        if (doOCR) {
+        if (doOCR && fullText.trim() !== "") {
           const ocrTextTitle = document.createElement("h3");
-          ocrTextTitle.textContent = "OCR 인식 결과:";
-          ocrTextTitle.style.marginTop = "1.5rem";
+          ocrTextTitle.textContent = "📋 OCR 인식 결과:";
 
           const ocrTextArea = document.createElement("pre");
           ocrTextArea.textContent = fullText;
 
           outputDiv.appendChild(ocrTextTitle);
           outputDiv.appendChild(ocrTextArea);
+        } else if (doOCR && fullText.trim() === "") {
+          const ocrTextTitle = document.createElement("h3");
+          ocrTextTitle.textContent = "📋 OCR 인식 결과:";
+          const noOcrText = document.createElement("p");
+          noOcrText.textContent = "OCR 결과가 없거나 추출된 텍스트가 없습니다.";
+          outputDiv.appendChild(ocrTextTitle);
+          outputDiv.appendChild(noOcrText);
         }
+
+        // 변환 완료 후 버튼 상태 복구
+        convertBtn.disabled = false;
+        convertButtonText.textContent = "🚀 PDF로 변환 및 OCR 인식 시작";
+        selectedFiles = []; // 변환 완료 후 목록 초기화 (선택 사항)
+        renderFileList();
       }
 
       async function convertFileToDataURL(file) {
@@ -378,23 +698,24 @@
           return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = async function () {
-              const blob = new Blob([reader.result]);
+              const blob = new Blob([reader.result], { type: file.type }); // 원래 파일 타입 유지 시도
               try {
                 const conversionResult = await heic2any({
                   blob,
-                  toType: "image/jpeg",
+                  toType: "image/jpeg", // HEIC는 JPEG로 변환하는 것이 일반적
                   quality: 0.9,
                 });
                 const convertedBlob =
                   conversionResult instanceof Blob
                     ? conversionResult
-                    : conversionResult[0];
+                    : conversionResult[0]; // 배열로 반환될 수 있음
                 const convReader = new FileReader();
                 convReader.onload = () => resolve(convReader.result);
-                convReader.onerror = () => reject("HEIC 변환 실패");
+                convReader.onerror = () =>
+                  reject("HEIC 변환된 이미지 읽기 실패");
                 convReader.readAsDataURL(convertedBlob);
               } catch (e) {
-                reject("HEIC 변환 중 오류");
+                reject("HEIC 변환 중 오류 발생: " + e.message);
               }
             };
             reader.onerror = () => reject("HEIC 파일 읽기 실패");
@@ -411,20 +732,8 @@
         }
       }
 
-      async function performOCR(dataUrl, languages) {
-        return new Promise((resolve, reject) => {
-          Tesseract.recognize(dataUrl, languages, {
-            logger: (m) => {
-              // 진행 상황 콘솔 출력 (선택 사항)
-              // console.log(m);
-            },
-          })
-            .then(({ data: { text } }) => {
-              resolve(text.trim());
-            })
-            .catch(reject);
-        });
-      }
+      // 초기 버튼 상태 업데이트
+      updateConvertButtonState();
     </script>
   </body>
 </html>
