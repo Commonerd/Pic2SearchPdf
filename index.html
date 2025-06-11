@@ -1,129 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Merge JPGs into searchable multilingual PDFs with offline OCR (Korean, English, Japanese, Russian). No account. No API. Just privacy & speed."
+      content="JPG, PNG, HEIC 이미지를 PDF로 병합하고 OCR 인식까지! 한국어/영어/일본어/러시아어 지원. 무료, 빠르고 간편한 이미지 PDF 변환기."
     />
     <meta
       name="keywords"
-      content="JPG to PDF, OCR PDF, Korean OCR, Japanese OCR, Russian OCR, multilingual PDF converter, offline image to searchable PDF"
+      content="이미지 PDF 변환, OCR, JPG to PDF, HEIC 변환, tesseract.js, 이미지 텍스트 인식, 한국어 OCR, 러시아어 OCR, 이미지 병합"
     />
-    <meta name="author" content="pic2searchpdf" />
-    <title>pic2searchpdf - JPG to OCR PDF (KR/EN/JP/RU)</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <meta name="robots" content="index, follow" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <title>pic2searchpdf - 이미지 PDF + 다국어 OCR 변환기</title>
     <style>
       body {
         font-family: sans-serif;
-        background: #f8f9fa;
-        color: #333;
-        margin: 0;
+        background: #f9f9f9;
         padding: 2rem;
-        max-width: 800px;
-        margin: auto;
-      }
-      header {
         text-align: center;
-        margin-bottom: 2rem;
       }
       h1 {
         font-size: 2rem;
-        margin-bottom: 0.5rem;
+        color: #333;
       }
       input[type="file"] {
-        display: block;
         margin: 1rem 0;
       }
       button {
-        background: #0066cc;
-        color: #fff;
-        padding: 0.6rem 1rem;
+        background: #1a73e8;
+        color: white;
+        padding: 0.7rem 1.2rem;
         border: none;
-        border-radius: 5px;
+        border-radius: 6px;
         cursor: pointer;
       }
       #output {
         margin-top: 2rem;
       }
+      canvas {
+        display: none;
+      }
     </style>
   </head>
   <body>
-    <header>
-      <h1>pic2searchpdf</h1>
-      <p>JPG을 PDF로 병합하고 OCR 텍스트 검색 가능하게 (한/영/일/러)</p>
-      <p><small>무료 · 로컬실행 · 개인정보 수집 없음</small></p>
-    </header>
-
-    <input type="file" id="imageFiles" multiple accept="image/jpeg" />
-    <button onclick="processImages()">PDF 만들기 + OCR입히기</button>
-
+    <h1>이미지를 PDF로 변환하고 텍스트 인식하기 (OCR)</h1>
+    <p>JPG, PNG, HEIC, WEBP 등을 업로드하세요. 다국어 OCR 지원.</p>
+    <input type="file" id="fileInput" accept="image/*,.heic" multiple />
+    <br />
+    <button onclick="startConversion()">PDF로 변환 + OCR 인식</button>
     <div id="output"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.3/dist/heic2any.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
     <script>
-      const langs = ["kor", "eng", "jpn", "rus"];
-      const STORAGE_KEY = "pic2searchpdf-session";
+      async function startConversion() {
+        const files = document.getElementById("fileInput").files;
+        if (!files.length) {
+          alert("파일을 선택하세요.");
+          return;
+        }
 
-      async function processImages() {
-        const files = document.getElementById("imageFiles").files;
-        if (!files.length) return alert("이미지를 업로드해주세요.");
+        const pdfDoc = await PDFLib.PDFDocument.create();
+        const outputDiv = document.getElementById("output");
+        outputDiv.innerHTML = "<p>변환 중... (이미지 처리 및 OCR 분석)</p>";
 
-        const { PDFDocument, rgb } = PDFLib;
-        const pdfDoc = await PDFDocument.create();
-        const ocrResults = [];
+        for (const file of files) {
+          let imageFile = file;
 
-        for (let file of files) {
+          // HEIC 변환
+          if (file.type === "image/heic") {
+            try {
+              const convBlob = await heic2any({
+                blob: file,
+                toType: "image/jpeg",
+              });
+              imageFile = new File(
+                [convBlob],
+                file.name.replace(/\.heic$/i, ".jpg"),
+                { type: "image/jpeg" }
+              );
+            } catch (e) {
+              alert("HEIC 변환 실패: " + file.name);
+              continue;
+            }
+          }
+
           const reader = new FileReader();
-          const imageData = await new Promise((res) => {
-            reader.onload = () => res(reader.result);
-            reader.readAsDataURL(file);
+          const imageDataUrl = await new Promise((resolve, reject) => {
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(imageFile);
           });
 
-          const imgBytes = await fetch(imageData).then((res) =>
-            res.arrayBuffer()
+          const img = new Image();
+          img.src = imageDataUrl;
+          await new Promise((res) => (img.onload = res));
+
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+
+          const imgBytes = await fetch(canvas.toDataURL("image/jpeg")).then(
+            (res) => res.arrayBuffer()
           );
-          const img = await pdfDoc.embedJpg(imgBytes);
+          const pdfImage = await pdfDoc.embedJpg(imgBytes);
           const page = pdfDoc.addPage([img.width, img.height]);
-          page.drawImage(img, {
+          page.drawImage(pdfImage, {
             x: 0,
             y: 0,
             width: img.width,
             height: img.height,
           });
 
-          const text = await Tesseract.recognize(imgBytes, langs.join("+"), {
+          // OCR 실행
+          await Tesseract.recognize(img, "kor+eng+jpn+rus", {
             logger: (m) => console.log(m),
+          }).then(({ data: { text } }) => {
+            const pre = document.createElement("pre");
+            pre.textContent = `▶ ${file.name} 인식결과:\n` + text;
+            outputDiv.appendChild(pre);
           });
-          ocrResults.push(text.data.text);
         }
 
-        const metadataText = ocrResults.join("\n\n");
-        const textPage = pdfDoc.addPage([612, 792]);
-        textPage.drawText(metadataText.slice(0, 4000), {
-          x: 50,
-          y: 750,
-          size: 10,
-          maxWidth: 500,
-          color: rgb(0, 0, 0),
-        });
-
         const pdfBytes = await pdfDoc.save();
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify([...files].map((f) => f.name))
-        );
-
         const blob = new Blob([pdfBytes], { type: "application/pdf" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
-        link.download = "merged_ocr.pdf";
-        link.click();
-
-        document.getElementById("output").innerText = "✅ PDF 생성 완료";
+        link.download = "output.pdf";
+        link.textContent = "⬇ OCR 포함 PDF 다운로드";
+        outputDiv.appendChild(link);
       }
     </script>
   </body>
