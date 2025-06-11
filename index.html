@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
-      간편 이미지 PDF 변환 & OCR 텍스트 인식 | HEIC, JPG, PNG 회전 지원
+      이미지 PDF 변환기 | HEIC, JPG, PNG OCR 텍스트 인식 & 드래그 순서 조정
     </title>
     <meta
       name="description"
-      content="HEIC, JPG, PNG 등 다양한 이미지 파일을 PDF로 변환하고 OCR로 텍스트를 추출하세요. 이미지 순서 조정 및 회전 기능을 지원하는 무료 웹 변환기입니다. 지금 바로 사용해 보세요!"
+      content="HEIC, JPG, PNG 등 다양한 이미지 파일을 PDF로 변환하고, OCR 기능을 통해 텍스트를 인식합니다. 드래그 앤 드롭으로 이미지 순서를 쉽게 조절할 수 있습니다."
     />
     <meta
       name="keywords"
-      content="이미지 PDF 변환, 사진 PDF, HEIC PDF, OCR, 텍스트 인식, 이미지 회전, 무료 PDF 변환, JPG PDF, PNG PDF, WEBP PDF, TIFF PDF, BMP PDF, 쉬운 PDF 변환"
+      content="이미지 PDF 변환, 사진 PDF, HEIC PDF, OCR, 텍스트 인식, 이미지 순서 변경, 무료 PDF 변환기, JPG PDF, PNG PDF, WEBP PDF, TIFF PDF, BMP PDF"
     />
-    <meta name="author" content="Simplifier" />
-    <meta property="og:title" content="간편 이미지 PDF & OCR 변환기" />
+    <meta name="author" content="Your Name or Company Name" />
+    <meta property="og:title" content="이미지 PDF & OCR 변환기" />
     <meta
       property="og:description"
-      content="HEIC, JPG, PNG 등 다양한 이미지 파일을 PDF로 변환하고 OCR로 텍스트를 추출하세요. 이미지 순서 조정 및 회전 기능을 지원하는 무료 웹 변환기입니다. 지금 바로 사용해 보세요!"
+      content="HEIC, JPG, PNG 등 다양한 이미지 파일을 PDF로 변환하고, OCR 기능을 통해 텍스트를 인식합니다. 드래그 앤 드롭으로 이미지 순서를 쉽게 조절할 수 있습니다."
     />
     <meta property="og:type" content="website" />
     <meta
@@ -31,35 +31,34 @@
     />
     <link rel="canonical" href="https://www.yourwebsite.com/image-to-pdf-ocr" />
     <meta name="geo.region" content="KR" />
-    <meta name="geo.placename" content="South Korea" />
+    <meta name="geo.placename" content="Seoul" />
     <meta name="geo.position" content="37.5665;126.9780" />
     <meta name="ICBM" content="37.5665, 126.9780" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
       rel="stylesheet"
     />
+
     <style>
-      /* CSS 변수 선언: 테마 색상 및 공통 스타일 정의 */
+      /* 변수 선언으로 유지보수 용이성 및 일관성 확보 */
       :root {
-        --primary-color: #4a90e2; /* 산뜻한 파란색 */
-        --primary-dark-color: #357bd8;
-        --accent-color: #5cb85c; /* 다운로드 버튼 색상 */
-        --background-color: #f5f7fa;
+        --primary-color: #007bff; /* 파란색 계열 */
+        --primary-dark-color: #0056b3;
+        --secondary-color: #6c757d; /* 회색 계열 */
+        --background-color: #f8f9fa;
         --card-background-color: #ffffff;
         --border-color: #e0e0e0;
-        --text-color: #333;
-        --heading-color: #2c3e50;
+        --text-color: #343a40;
+        --heading-color: #212529;
         --shadow-light: rgba(0, 0, 0, 0.08);
-        --shadow-medium: rgba(0, 0, 0, 0.15);
-        --radius-small: 8px;
-        --radius-medium: 12px;
+        --shadow-medium: rgba(0, 0, 0, 0.12);
       }
 
       body {
-        font-family: "Pretendard", sans-serif; /* Pretendard 폰트 적용 */
+        font-family: "Noto Sans KR", sans-serif; /* 한국어 폰트 적용 */
         background: var(--background-color);
         color: var(--text-color);
         margin: 0;
@@ -69,79 +68,73 @@
         align-items: center;
         min-height: 100vh;
         line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
       }
 
       header {
         text-align: center;
-        margin-bottom: 2.5rem;
+        margin-bottom: 2rem;
         width: 100%;
-        max-width: 800px;
+        max-width: 700px;
       }
 
       h1 {
-        font-size: 2.8rem;
+        font-size: 2.5rem; /* 더 크고 눈에 띄게 */
         color: var(--heading-color);
         margin-bottom: 1rem;
-        font-weight: 700;
-        letter-spacing: -0.05em;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        font-weight: 700; /* 더 두껍게 */
       }
 
       p {
-        font-size: 1.15rem;
-        margin-bottom: 1.8rem;
+        font-size: 1.1rem; /* 설명 텍스트 크기 증가 */
+        margin-bottom: 1.5rem;
         max-width: 700px;
         text-align: center;
-        color: var(--text-color);
-        line-height: 1.8;
+        color: var(--secondary-color);
       }
 
       main {
         width: 100%;
-        max-width: 800px; /* 컨텐츠 영역 최대 너비 확장 */
+        max-width: 700px; /* 컨텐츠 영역 최대 너비 조정 */
         background: var(--card-background-color);
-        padding: 3rem;
-        border-radius: var(--radius-medium);
-        box-shadow: 0 10px 30px var(--shadow-light); /* 그림자 부드럽게 */
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px var(--shadow-light); /* 그림자 강화 */
         box-sizing: border-box;
       }
 
       #dropZone {
         width: 100%;
-        height: 200px; /* 높이 더욱 증가 */
-        border: 3px dashed var(--border-color);
-        border-radius: var(--radius-small);
+        height: 180px; /* 높이 증가 */
+        border: 3px dashed var(--border-color); /* 테두리 두께 증가 */
+        border-radius: 10px;
         display: flex;
-        flex-direction: column;
+        flex-direction: column; /* 아이콘과 텍스트를 세로로 정렬 */
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        margin: 2rem 0;
-        background: #fdfdfe;
+        margin: 1.5rem 0;
+        background: #fdfdff; /* 배경색 밝게 */
         user-select: none;
-        transition: all 0.3s ease;
+        transition: all 0.3s ease; /* 호버 효과 추가 */
         color: var(--secondary-color);
-        font-size: 1.2rem;
-        font-weight: 500;
+        font-size: 1.1rem;
       }
 
       #dropZone:hover {
         border-color: var(--primary-color);
-        background: #e9f0f9;
+        background: #f0f7ff;
         color: var(--primary-dark-color);
       }
 
       #dropZone.dragging {
-        background: #dce7f6;
+        background: #e0eaff; /* 드래그 중 배경색 변경 */
         border-color: var(--primary-dark-color);
-        box-shadow: 0 0 20px rgba(74, 144, 226, 0.2);
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
       }
 
       .drop-icon {
-        font-size: 4rem; /* 아이콘 크기 증가 */
-        margin-bottom: 1rem;
+        font-size: 3rem; /* 아이콘 크기 */
+        margin-bottom: 0.8rem;
         color: var(--primary-color);
       }
 
@@ -152,7 +145,7 @@
       #fileList {
         display: flex;
         flex-direction: column;
-        gap: 0.8rem; /* 간격 증가 */
+        gap: 0.7rem; /* 간격 증가 */
         margin-top: 1.5rem;
         width: 100%;
         list-style: none;
@@ -161,60 +154,42 @@
 
       .file-item {
         background: var(--card-background-color);
-        padding: 0.8rem 1.5rem;
-        border-radius: var(--radius-small);
+        padding: 0.7rem 1.2rem;
+        border-radius: 8px;
         border: 1px solid var(--border-color);
         display: flex;
         justify-content: space-between;
         align-items: center;
         cursor: grab;
         transition: all 0.2s ease;
-        box-shadow: 0 2px 10px var(--shadow-light);
-        font-weight: 500;
+        box-shadow: 0 2px 8px var(--shadow-light);
       }
 
       .file-item:hover {
-        background: #f8f8f8;
+        background: #f0f0f0;
       }
 
       .file-item:active {
         cursor: grabbing;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 18px var(--shadow-medium);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px var(--shadow-medium);
       }
 
       .file-name {
         flex-grow: 1;
         user-select: text;
-        font-size: 1rem;
+        font-size: 0.95rem;
         color: var(--text-color);
-        white-space: nowrap; /* 긴 파일명 한 줄로 */
-        overflow: hidden; /* 넘치는 부분 숨김 */
-        text-overflow: ellipsis; /* ...으로 표시 */
-        max-width: calc(100% - 100px); /* 버튼 공간 확보 */
-      }
-
-      .file-actions {
-        display: flex;
-        gap: 8px;
-        align-items: center;
-      }
-
-      .action-btn {
-        background: none;
-        border: none;
-        font-size: 1.1rem;
-        cursor: pointer;
-        color: var(--primary-color);
-        transition: color 0.2s ease;
-      }
-
-      .action-btn:hover {
-        color: var(--primary-dark-color);
       }
 
       .remove-file {
+        background: none;
+        border: none;
         color: #dc3545; /* 빨간색 X 버튼 */
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin-left: 1rem;
+        transition: color 0.2s ease;
       }
 
       .remove-file:hover {
@@ -222,90 +197,80 @@
       }
 
       .ocr-options {
-        margin: 2.5rem 0;
+        margin: 2rem 0;
         background: #fdfdfd;
-        padding: 2rem;
-        border-radius: var(--radius-small);
+        padding: 1.5rem;
+        border-radius: 10px;
         border: 1px solid var(--border-color);
-        box-shadow: 0 2px 12px var(--shadow-light);
+        box-shadow: 0 2px 10px var(--shadow-light);
       }
 
       .ocr-options label {
         display: flex;
         align-items: center;
-        margin-bottom: 1.2rem;
-        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        font-size: 1rem;
         color: var(--heading-color);
         cursor: pointer;
         user-select: none;
-        font-weight: 600;
       }
 
       .ocr-options input[type="checkbox"] {
-        margin-right: 10px;
-        transform: scale(1.3);
-        accent-color: var(--primary-color);
+        margin-right: 8px;
+        transform: scale(1.2); /* 체크박스 크기 키우기 */
+        accent-color: var(--primary-color); /* 체크박스 색상 변경 */
         cursor: pointer;
       }
 
       .ocr-languages {
-        margin-top: 1.5rem;
-        display: grid;
+        margin-top: 1rem;
+        display: grid; /* 그리드 레이아웃으로 변경 */
         grid-template-columns: repeat(
           auto-fit,
-          minmax(130px, 1fr)
+          minmax(120px, 1fr)
         ); /* 반응형 그리드 */
-        gap: 18px;
-        padding-left: 30px;
+        gap: 15px; /* 간격 넓힘 */
+        padding-left: 25px; /* OCR 수행하기 체크박스와 정렬 */
       }
 
       .ocr-languages label {
-        margin-bottom: 0;
-        font-weight: 500;
-        color: var(--text-color);
+        margin-bottom: 0; /* 개별 라벨의 하단 마진 제거 */
       }
 
       button.convert-btn {
         background: var(--primary-color);
         color: white;
-        padding: 1.2rem 2.5rem;
-        font-size: 1.3rem;
+        padding: 1rem 2rem; /* 버튼 패딩 증가 */
+        font-size: 1.2rem; /* 버튼 폰트 크기 증가 */
         border: none;
-        border-radius: var(--radius-small);
+        border-radius: 10px;
         cursor: pointer;
-        transition: background 0.3s ease, transform 0.2s ease,
-          box-shadow 0.3s ease;
-        margin-top: 2rem;
-        width: 100%;
+        transition: background 0.3s ease, transform 0.2s ease;
+        margin-top: 1.5rem;
+        width: 100%; /* 너비 100%로 설정 */
         font-weight: 700;
-        letter-spacing: 0.8px;
-        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.2);
+        letter-spacing: 0.5px;
       }
 
       button.convert-btn:hover {
         background: var(--primary-dark-color);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+        transform: translateY(-2px); /* 호버 시 약간 위로 */
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.25);
       }
 
       button.convert-btn:disabled {
         background: #cccccc;
         cursor: not-allowed;
-        transform: translateY(0);
-        box-shadow: none;
       }
 
       .progress-container {
         width: 100%;
         background: var(--border-color);
-        border-radius: var(--radius-small);
+        border-radius: 8px;
         overflow: hidden;
         margin: 2rem 0;
-        height: 30px; /* 진행바 높이 증가 */
+        height: 25px; /* 진행바 높이 증가 */
         box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        text-align: center;
       }
 
       .progress-bar {
@@ -318,65 +283,54 @@
         justify-content: center;
         color: white;
         font-weight: bold;
-        font-size: 1rem;
-        white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-        padding: 0 10px;
-        box-sizing: border-box;
+        font-size: 0.9rem;
       }
 
       #output {
-        margin-top: 3rem;
+        margin-top: 2rem;
         width: 100%;
         background: var(--card-background-color);
-        padding: 2.5rem;
-        border-radius: var(--radius-medium);
-        box-shadow: 0 10px 30px var(--shadow-light);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px var(--shadow-light);
         text-align: left;
-        display: none;
-        word-break: break-word;
+        display: none; /* 초기에는 숨김 */
+        word-break: break-word; /* 긴 단어 줄 바꿈 처리 */
       }
 
       #output h3 {
         color: var(--heading-color);
         margin-top: 0;
-        margin-bottom: 1.5rem;
-        font-size: 1.6rem;
-        font-weight: 600;
+        margin-bottom: 1rem;
       }
 
       #output pre {
         background: #f0f4f7;
-        padding: 1.5rem;
-        border-radius: var(--radius-small);
+        padding: 1.2rem;
+        border-radius: 8px;
         border: 1px solid var(--border-color);
-        max-height: 450px;
-        overflow-y: auto;
+        max-height: 400px; /* OCR 결과 영역 높이 제한 */
+        overflow-y: auto; /* 스크롤바 추가 */
         white-space: pre-wrap;
         word-wrap: break-word;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         color: var(--text-color);
       }
 
       .download-link {
-        display: inline-flex; /* 아이콘과 텍스트 중앙 정렬 */
-        align-items: center;
-        gap: 8px; /* 아이콘과 텍스트 사이 간격 */
-        background: var(--accent-color); /* 녹색 다운로드 버튼 */
+        display: inline-block;
+        background: #28a745; /* 녹색 다운로드 버튼 */
         color: white;
-        padding: 1rem 2rem;
-        border-radius: var(--radius-small);
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
         text-decoration: none;
-        font-weight: 600;
-        margin-bottom: 2rem;
-        transition: background 0.3s ease, transform 0.2s ease;
-        box-shadow: 0 4px 15px rgba(92, 184, 92, 0.25);
-        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        transition: background 0.3s ease;
       }
 
       .download-link:hover {
-        background: #4cae4c;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(92, 184, 92, 0.35);
+        background: #218838;
       }
 
       /* 반응형 디자인 */
@@ -385,7 +339,7 @@
           padding: 1rem;
         }
         h1 {
-          font-size: 2.2rem;
+          font-size: 2rem;
         }
         p {
           font-size: 1rem;
@@ -394,67 +348,37 @@
           padding: 1.5rem;
         }
         #dropZone {
-          height: 160px;
+          height: 150px;
           font-size: 1rem;
         }
         .drop-icon {
-          font-size: 3rem;
-        }
-        .file-name {
-          max-width: calc(100% - 90px);
-        }
-        .file-item {
-          padding: 0.7rem 1rem;
-        }
-        .action-btn {
-          font-size: 1rem;
-        }
-        .ocr-options {
-          padding: 1.5rem;
-        }
-        .ocr-options label {
-          font-size: 1rem;
-        }
-        .ocr-languages {
-          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-          gap: 10px;
-          padding-left: 20px;
+          font-size: 2.5rem;
         }
         button.convert-btn {
           font-size: 1.1rem;
-          padding: 1rem 2rem;
+          padding: 0.9rem 1.8rem;
         }
-        .progress-bar {
-          font-size: 0.85rem;
-        }
-        #output {
-          padding: 1.5rem;
-        }
-        #output h3 {
-          font-size: 1.4rem;
-        }
-        #output pre {
-          font-size: 0.85rem;
-          padding: 1rem;
+        .ocr-languages {
+          grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
         }
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>📸 이미지 PDF & OCR 변환기</h1>
+      <h1>📸 이미지를 PDF로 변환하고 OCR 텍스트 인식하기 📄</h1>
       <p>
-        **HEIC, JPG, PNG, WEBP, BMP, TIFF** 등 다양한 이미지 파일을 **PDF
-        문서**로 변환하고, 이미지 속 텍스트를 **OCR 기술**로 추출하세요. ✨
-        드래그 앤 드롭으로 이미지를 업로드하고, 마우스로 순서를 손쉽게 조정하며,
-        **이미지 회전**까지 지원합니다.
+        **HEIC, JPG, PNG, WEBP, BMP, TIFF** 등 다양한 이미지 파일을 PDF 문서로
+        변환하고, 이미지 속 텍스트를 **OCR** 기술로 추출합니다. 드래그 앤 드롭
+        또는 파일 선택으로 이미지를 업로드하고, 마우스로 순서를 손쉽게
+        조정하세요.
       </p>
     </header>
 
     <main>
       <div id="dropZone">
-        <span class="drop-icon">📤</span>
-        파일을 여기에 드래그하거나 클릭하여 선택하세요
+        <span class="drop-icon">⬆️</span>
+        여기에 이미지를 드래그하거나 클릭하여 선택하세요
       </div>
       <input
         type="file"
@@ -468,7 +392,7 @@
       <div class="ocr-options">
         <label>
           <input type="checkbox" id="doOCR" checked />
-          <span style="font-weight: 700">OCR 수행하기</span> (이미지에서 텍스트
+          <span style="font-weight: bold">OCR 수행하기</span> (이미지에서 텍스트
           추출)
         </label>
         <div class="ocr-languages">
@@ -510,8 +434,7 @@
       const convertBtn = document.querySelector(".convert-btn");
       const convertButtonText = document.getElementById("convertButtonText");
 
-      // selectedFiles 배열은 이제 File 객체와 rotation 정보를 함께 저장
-      let selectedFiles = []; // { file: File, rotation: 0 | 90 | 180 | 270 }
+      let selectedFiles = [];
 
       // 드래그앤드롭 및 클릭으로 파일 선택
       dropZone.addEventListener("click", () => fileInput.click());
@@ -539,54 +462,50 @@
       });
 
       function addFiles(files) {
+        // 중복 파일명 체크 및 추가
         files.forEach((file) => {
-          // 파일명과 사이즈가 동일한 경우 중복으로 간주
           if (
             !selectedFiles.some(
-              (f) => f.file.name === file.name && f.file.size === file.size
+              (f) => f.name === file.name && f.size === file.size
             )
           ) {
-            selectedFiles.push({ file: file, rotation: 0 }); // 초기 회전값 0으로 설정
+            selectedFiles.push(file);
           }
         });
         renderFileList();
-        resetUI(); // 파일 추가 시 UI 초기화
+        outputDiv.style.display = "none"; // 파일 추가 시 결과 숨기기
+        outputDiv.innerHTML = "";
+        progressContainer.style.display = "none";
+        progressBar.style.width = "0%";
+        progressBar.textContent = ""; // 진행 텍스트 초기화
         updateConvertButtonState();
       }
 
       function renderFileList() {
         fileList.innerHTML = "";
-        selectedFiles.forEach((item, index) => {
+        selectedFiles.forEach((file, index) => {
           const li = document.createElement("li");
           li.className = "file-item";
           li.setAttribute("data-index", index);
-          // 회전 상태를 표시하는 스타일 (예: transform)을 추가할 수 있습니다.
-          // 여기서는 시각적으로 회전 상태를 직접 보여주기보다, 회전 버튼이 있음을 강조합니다.
           li.innerHTML = `
-            <span class="file-name" title="${item.file.name}">${item.file.name}</span>
-            <div class="file-actions">
-              <button class="action-btn rotate-btn" data-index="${index}" title="시계 방향 90도 회전">🔄</button>
-              <button class="action-btn remove-file" data-index="${index}" title="파일 삭제">&times;</button>
-            </div>
+            <span class="file-name">${file.name}</span>
+            <button class="remove-file" data-index="${index}">&times;</button>
           `;
           fileList.appendChild(li);
         });
 
-        // 파일 제거 및 회전 버튼 이벤트 리스너 추가
+        // 파일 제거 버튼 이벤트 리스너 추가
         document.querySelectorAll(".remove-file").forEach((button) => {
           button.addEventListener("click", (e) => {
             const indexToRemove = parseInt(e.target.dataset.index);
-            selectedFiles.splice(indexToRemove, 1);
-            renderFileList();
-            resetUI();
+            selectedFiles.splice(indexToRemove, 1); // 배열에서 파일 제거
+            renderFileList(); // 파일 목록 다시 렌더링
+            outputDiv.style.display = "none"; // 결과 영역 숨기기
+            outputDiv.innerHTML = "";
+            progressContainer.style.display = "none";
+            progressBar.style.width = "0%";
+            progressBar.textContent = "";
             updateConvertButtonState();
-          });
-        });
-
-        document.querySelectorAll(".rotate-btn").forEach((button) => {
-          button.addEventListener("click", (e) => {
-            const indexToRotate = parseInt(e.target.dataset.index);
-            rotateImage(indexToRotate);
           });
         });
       }
@@ -598,48 +517,34 @@
           const oldIndex = evt.oldIndex;
           const newIndex = evt.newIndex;
           if (oldIndex === newIndex) return;
+          // selectedFiles 배열도 순서 변경 반영
           const movedItem = selectedFiles.splice(oldIndex, 1)[0];
           selectedFiles.splice(newIndex, 0, movedItem);
-          // DOM은 SortableJS가 자동으로 업데이트하므로 renderFileList()는 불필요
-          // 하지만 data-index 속성 업데이트를 위해 다시 렌더링하는 것을 고려할 수 있음
-          // 현재는 필요시 수동으로 renderFileList() 호출
+          // renderFileList(); // Sortablejs가 DOM을 자동으로 업데이트하므로 다시 그릴 필요 없음
         },
       });
 
-      // 이미지 회전 기능 (차별화된 기능)
-      function rotateImage(index) {
-        let currentRotation = selectedFiles[index].rotation;
-        currentRotation = (currentRotation + 90) % 360; // 0 -> 90 -> 180 -> 270 -> 0
-        selectedFiles[index].rotation = currentRotation;
-        alert(
-          `'${selectedFiles[index].file.name}' 이미지를 ${currentRotation}° 회전했습니다.`
-        );
-        // 실제 PDF에 적용될 때 반영되므로, UI에는 별도의 시각적 회전 효과는 없음
-      }
-
       // 변환 버튼 활성화/비활성화 상태 업데이트
       function updateConvertButtonState() {
-        convertBtn.disabled = selectedFiles.length === 0;
-      }
-
-      // UI 상태 초기화 함수
-      function resetUI() {
-        outputDiv.style.display = "none";
-        outputDiv.innerHTML = "";
-        progressContainer.style.display = "none";
-        progressBar.style.width = "0%";
-        progressBar.textContent = "";
+        if (selectedFiles.length > 0) {
+          convertBtn.disabled = false;
+        } else {
+          convertBtn.disabled = true;
+        }
       }
 
       async function startConversion() {
         if (selectedFiles.length === 0) {
-          alert("💡 변환할 이미지를 한 개 이상 선택해주세요.");
+          alert("💡 최소 한 개 이상의 이미지를 선택해주세요.");
           return;
         }
 
-        resetUI();
+        outputDiv.style.display = "none"; // 이전 결과 숨기기
+        outputDiv.innerHTML = "";
         progressContainer.style.display = "block";
-        convertBtn.disabled = true;
+        progressBar.style.width = "0%";
+        progressBar.textContent = "변환 준비 중...";
+        convertBtn.disabled = true; // 변환 중 버튼 비활성화
         convertButtonText.textContent = "변환 중... 잠시만 기다려주세요";
 
         const doOCR = doOCRCheckbox.checked;
@@ -649,41 +554,38 @@
         const languages =
           Array.from(languageCheckboxes)
             .map((el) => el.value)
-            .join("+") || "kor";
+            .join("+") || "kor"; // 선택된 언어가 없으면 기본으로 한국어 선택
 
+        // pdf-lib로 PDF 만들기
         const pdfDoc = await PDFLib.PDFDocument.create();
-        let fullText = "";
 
+        let fullText = "";
         for (let i = 0; i < selectedFiles.length; i++) {
-          const fileItem = selectedFiles[i];
-          const file = fileItem.file;
-          const rotationAngle = fileItem.rotation; // 저장된 회전 각도
+          const file = selectedFiles[i];
+          let imageDataUrl;
 
           progressBar.style.width = `${Math.round(
             (i / selectedFiles.length) * 100
           )}%`;
-          progressBar.textContent = `이미지 처리 중 (${i + 1}/${
+          progressBar.textContent = `이미지 변환 중 (${i + 1}/${
             selectedFiles.length
           })...`;
 
-          let imageDataUrl;
           try {
             imageDataUrl = await convertFileToDataURL(file);
           } catch (err) {
-            alert(
-              `⚠️ 이미지 변환 중 오류 발생: '${file.name}'. 이 이미지는 스킵됩니다.`
-            );
+            alert(`⚠️ 이미지 변환 중 오류 발생: ${file.name}. 스킵합니다.`);
             console.error(err);
             continue;
           }
 
           const img = new Image();
           img.src = imageDataUrl;
+
           await new Promise((resolve) => (img.onload = resolve));
 
           let pdfImage;
           try {
-            // HEIC 변환 결과는 보통 JPEG이므로, PNG가 아니면 JPEG으로 임베딩 시도
             if (
               file.type.startsWith("image/png") ||
               imageDataUrl.startsWith("data:image/png")
@@ -693,43 +595,31 @@
               pdfImage = await pdfDoc.embedJpg(imageDataUrl);
             }
           } catch (e) {
-            console.warn(`이미지 임베딩 실패: ${file.name}. 재시도...`, e);
+            console.warn(
+              `이미지 임베딩 실패 (PNG/JPG): ${file.name}. JPEG로 재시도합니다.`,
+              e
+            );
+            // PNG가 아닐 경우 JPG로 다시 시도 (안전성)
             try {
-              // PNG 임베딩 실패 시 JPEG으로 재시도
               pdfImage = await pdfDoc.embedJpg(imageDataUrl);
             } catch (e2) {
               alert(
-                `⚠️ PDF에 이미지 추가 중 오류 발생: '${file.name}'. 이 이미지는 제외됩니다.`
+                `⚠️ PDF에 이미지 추가 중 오류 발생: ${file.name}. 이 이미지는 제외됩니다.`
               );
               console.error("최종 이미지 임베딩 실패:", e2);
               continue;
             }
           }
 
-          const { width, height } = pdfImage;
-          // 회전 각도에 따라 페이지 크기 및 이미지 위치 조정
-          let page;
-          if (rotationAngle === 90 || rotationAngle === 270) {
-            // 90도 또는 270도 회전 시 너비와 높이 교환
-            page = pdfDoc.addPage([height, width]);
-            page.drawImage(pdfImage, {
-              x: (height - width) / 2, // 이미지를 중앙에 배치
-              y: (width - height) / 2, // 이미지를 중앙에 배치
-              width: width,
-              height: height,
-              rotate: PDFLib.Rotation.degrees(rotationAngle),
-            });
-          } else {
-            // 0도 또는 180도 회전 시
-            page = pdfDoc.addPage([width, height]);
-            page.drawImage(pdfImage, {
-              x: 0,
-              y: 0,
-              width: width,
-              height: height,
-              rotate: PDFLib.Rotation.degrees(rotationAngle),
-            });
-          }
+          // 이미지 비율에 맞춰 페이지 생성
+          const { width, height } = pdfImage.scale(1); // 원본 비율 유지
+          const page = pdfDoc.addPage([width, height]);
+          page.drawImage(pdfImage, {
+            x: 0,
+            y: 0,
+            width: width,
+            height: height,
+          });
 
           if (doOCR) {
             progressBar.textContent = `OCR 인식 중 (${i + 1}/${
@@ -747,12 +637,7 @@
                   }
                 },
               });
-              fullText +=
-                `----- [${file.name} - ${
-                  rotationAngle !== 0 ? `${rotationAngle}° 회전됨` : "원본"
-                }] -----\n` +
-                text.trim() +
-                "\n\n";
+              fullText += `----- [${file.name}] -----\n` + text.trim() + "\n\n";
             } catch (e) {
               fullText += `----- [${file.name}] -----\n🚨 OCR 실패\n\n`;
               console.error(`OCR 실패: ${file.name}`, e);
@@ -770,54 +655,60 @@
 
         const downloadLink = document.createElement("a");
         downloadLink.href = pdfUrl;
-        downloadLink.download = "simplifier_converted_images_with_ocr.pdf"; // 파일명 구체화
+        downloadLink.download = "converted_images_with_ocr.pdf"; // 파일명 구체화
         downloadLink.textContent = "📥 변환된 PDF 다운로드";
-        downloadLink.className = "download-link";
+        downloadLink.className = "download-link"; // 스타일 클래스 적용
 
-        outputDiv.innerHTML = "";
+        outputDiv.innerHTML = ""; // 기존 내용 초기화
         outputDiv.appendChild(downloadLink);
-        outputDiv.style.display = "block";
+        outputDiv.style.display = "block"; // 결과 영역 표시
 
-        if (doOCR) {
+        if (doOCR && fullText.trim() !== "") {
           const ocrTextTitle = document.createElement("h3");
           ocrTextTitle.textContent = "📋 OCR 인식 결과:";
+
           const ocrTextArea = document.createElement("pre");
-          ocrTextArea.textContent =
-            fullText.trim() === ""
-              ? "OCR 결과가 없거나 추출된 텍스트가 없습니다."
-              : fullText;
+          ocrTextArea.textContent = fullText;
+
           outputDiv.appendChild(ocrTextTitle);
           outputDiv.appendChild(ocrTextArea);
+        } else if (doOCR && fullText.trim() === "") {
+          const ocrTextTitle = document.createElement("h3");
+          ocrTextTitle.textContent = "📋 OCR 인식 결과:";
+          const noOcrText = document.createElement("p");
+          noOcrText.textContent = "OCR 결과가 없거나 추출된 텍스트가 없습니다.";
+          outputDiv.appendChild(ocrTextTitle);
+          outputDiv.appendChild(noOcrText);
         }
 
-        // 변환 완료 후 버튼 상태 복구 및 파일 목록 초기화
+        // 변환 완료 후 버튼 상태 복구
         convertBtn.disabled = false;
         convertButtonText.textContent = "🚀 PDF로 변환 및 OCR 인식 시작";
-        selectedFiles = []; // 변환 완료 후 목록 초기화
+        selectedFiles = []; // 변환 완료 후 목록 초기화 (선택 사항)
         renderFileList();
       }
 
       async function convertFileToDataURL(file) {
-        return new Promise((resolve, reject) => {
-          // HEIC/HEIF 파일 처리
-          if (
-            file.type === "image/heic" ||
-            file.name.toLowerCase().endsWith(".heic") ||
-            file.name.toLowerCase().endsWith(".heif")
-          ) {
+        if (
+          file.type === "image/heic" ||
+          file.name.toLowerCase().endsWith(".heic") ||
+          file.name.toLowerCase().endsWith(".heif")
+        ) {
+          // HEIC/HEIF 변환
+          return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = async function () {
-              const blob = new Blob([reader.result], { type: file.type });
+              const blob = new Blob([reader.result], { type: file.type }); // 원래 파일 타입 유지 시도
               try {
                 const conversionResult = await heic2any({
                   blob,
-                  toType: "image/jpeg",
+                  toType: "image/jpeg", // HEIC는 JPEG로 변환하는 것이 일반적
                   quality: 0.9,
                 });
                 const convertedBlob =
                   conversionResult instanceof Blob
                     ? conversionResult
-                    : conversionResult[0];
+                    : conversionResult[0]; // 배열로 반환될 수 있음
                 const convReader = new FileReader();
                 convReader.onload = () => resolve(convReader.result);
                 convReader.onerror = () =>
@@ -829,14 +720,16 @@
             };
             reader.onerror = () => reject("HEIC 파일 읽기 실패");
             reader.readAsArrayBuffer(file);
-          } else {
-            // 일반 이미지 파일 처리
+          });
+        } else {
+          // 일반 이미지
+          return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = () => resolve(reader.result);
             reader.onerror = () => reject("이미지 읽기 실패");
             reader.readAsDataURL(file);
-          }
-        });
+          });
+        }
       }
 
       // 초기 버튼 상태 업데이트
