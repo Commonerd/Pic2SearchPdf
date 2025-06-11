@@ -1,949 +1,130 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      JPG를 검색 가능한 PDF로 변환 - OCR 무료, 빠르고 간편하게 |
-      PicToSearchablePDF.app
-    </title>
     <meta
       name="description"
-      content="JPG 이미지를 검색 가능한 PDF로 무료로 변환하고 OCR 기능을 추가하세요. 사진, 스캔 파일을 손쉽게 텍스트 검색 가능한 PDF로 만드세요. 빠르고 간단한 온라인 도구."
+      content="Merge JPGs into searchable multilingual PDFs with offline OCR (Korean, English, Japanese, Russian). No account. No API. Just privacy & speed."
     />
     <meta
       name="keywords"
-      content="JPG to PDF, OCR PDF, 이미지 PDF 변환, 검색 가능한 PDF, 무료 OCR, 온라인 PDF 변환, 사진 PDF, 스캔 PDF, 텍스트 추출, pic2searchpdf"
+      content="JPG to PDF, OCR PDF, Korean OCR, Japanese OCR, Russian OCR, multilingual PDF converter, offline image to searchable PDF"
     />
-    <meta
-      property="og:title"
-      content="JPG를 검색 가능한 PDF로 변환 - OCR 무료, 빠르고 간편하게 | PicToSearchablePDF.app"
-    />
-    <meta
-      property="og:description"
-      content="JPG 이미지를 검색 가능한 PDF로 무료로 변환하고 OCR 기능을 추가하세요. 사진, 스캔 파일을 손쉽게 텍스트 검색 가능한 PDF로 만드세요. 빠르고 간단한 온라인 도구."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://pic2searchpdf.netlify.app/" />
-    <meta
-      property="og:image"
-      content="https://placehold.co/1200x630/007bff/ffffff?text=PicToSearchablePDF"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="JPG를 검색 가능한 PDF로 변환 - OCR 무료, 빠르고 간편하게 | PicToSearchablePDF.app"
-    />
-    <meta
-      name="twitter:description"
-      content="JPG 이미지를 검색 가능한 PDF로 무료로 변환하고 OCR 기능을 추가하세요. 사진, 스캔 파일을 손쉽게 텍스트 검색 가능한 PDF로 만드세요. 빠르고 간단한 온라인 도구."
-    />
-    <meta
-      name="twitter:image"
-      content="https://placehold.co/1200x675/007bff/ffffff?text=PicToSearchablePDF"
-    />
-
-    <!-- Favicon -->
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90' fill='%23007bff'%3E📄%3C/text%3E%3Ctext y='0.9em' font-size='40' x='50' y='50' fill='%23fff' text-anchor='middle'%3EP2S%3C/text%3E%3C/svg%3E"
-      type="image/svg+xml"
-    />
-    <!-- Inline CSS for a simple, beautiful, and responsive design -->
+    <meta name="author" content="pic2searchpdf" />
+    <title>pic2searchpdf - JPG to OCR PDF (KR/EN/JP/RU)</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
-
       body {
-        font-family: "Inter", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f7f6; /* Soft background color */
+        font-family: sans-serif;
+        background: #f8f9fa;
         color: #333;
-        line-height: 1.6;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
+        margin: 0;
+        padding: 2rem;
+        max-width: 800px;
+        margin: auto;
       }
-
-      .container {
-        max-width: 1000px;
-        margin: 20px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 12px; /* More rounded corners */
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Softer shadow */
-        flex-grow: 1;
-      }
-
       header {
         text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #eee;
+        margin-bottom: 2rem;
       }
-
-      header h1 {
-        color: #007bff; /* Primary blue for headings */
-        font-size: 2.5em;
-        margin-bottom: 10px;
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
       }
-
-      header p {
-        font-size: 1.1em;
-        color: #666;
+      input[type="file"] {
+        display: block;
+        margin: 1rem 0;
       }
-
-      .ad-container {
-        width: 100%;
-        height: 90px; /* Standard banner size */
-        background-color: #e0e0e0;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #666;
-        border-radius: 8px;
-        font-size: 0.9em;
-        border: 1px dashed #bbb;
-      }
-
-      .drop-area {
-        border: 3px dashed #007bff; /* Primary blue border */
-        border-radius: 12px;
-        padding: 40px;
-        text-align: center;
-        cursor: pointer;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-        margin-bottom: 20px;
-        background-color: #f7fcff; /* Light blue background for drop area */
-      }
-
-      .drop-area.highlight {
-        background-color: #e3f2fd; /* Lighter blue on drag over */
-        border-color: #0056b3;
-      }
-
-      .drop-area p {
-        margin: 0;
-        font-size: 1.2em;
-        color: #007bff;
-        font-weight: 600;
-      }
-
-      .drop-area input[type="file"] {
-        display: none;
-      }
-
-      .button-group {
-        display: flex;
-        flex-wrap: wrap; /* Allow wrapping on small screens */
-        gap: 15px; /* Spacing between buttons */
-        margin-top: 20px;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .button-group button {
-        background-color: #28a745; /* Success green for main action */
-        color: white;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1.1em;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.2);
-        font-weight: 600;
-      }
-
-      .button-group button:hover {
-        background-color: #218838;
-        transform: translateY(-2px);
-      }
-
-      .button-group button:disabled {
-        background-color: #cccccc;
-        cursor: not-allowed;
-        box-shadow: none;
-        transform: none;
-      }
-
-      .language-select {
-        padding: 10px 15px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 1em;
-        color: #555;
-        background-color: #f9f9f9;
-      }
-
-      #fileList {
-        margin-top: 30px;
-        border-top: 1px solid #eee;
-        padding-top: 20px;
-      }
-
-      .file-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-        padding: 15px;
-        background-color: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s ease;
-        position: relative; /* For reordering handles */
-      }
-
-      .file-item.dragging {
-        opacity: 0.7;
-        transform: scale(1.02);
-      }
-
-      .file-item img {
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-        border-radius: 8px;
-        margin-right: 20px;
-        border: 1px solid #ddd;
-      }
-
-      .file-info {
-        flex-grow: 1;
-      }
-
-      .file-info p {
-        margin: 0;
-        font-size: 1.1em;
-        font-weight: 600;
-        color: #333;
-      }
-
-      .file-item .actions {
-        display: flex;
-        gap: 10px;
-        margin-left: 20px;
-      }
-
-      .file-item .actions button {
-        background-color: #dc3545; /* Danger red for remove */
-        color: white;
-        border: none;
-        border-radius: 6px;
-        padding: 8px 12px;
-        cursor: pointer;
-        font-size: 0.9em;
-        transition: background-color 0.3s ease;
-      }
-
-      .file-item .actions button:hover {
-        background-color: #c82333;
-      }
-
-      .file-item .move-buttons button {
-        background-color: #007bff; /* Primary blue for move buttons */
-        padding: 8px 10px;
-        font-size: 0.9em;
-      }
-      .file-item .move-buttons button:hover {
-        background-color: #0056b3;
-      }
-
-      .progress-container {
-        margin-top: 20px;
-        width: 100%;
-        background-color: #e0e0e0;
-        border-radius: 8px;
-        overflow: hidden;
-        height: 25px;
-      }
-
-      .progress-bar {
-        height: 100%;
-        width: 0%;
-        background-color: #17a2b8; /* Info blue for progress */
-        border-radius: 8px;
-        text-align: center;
-        color: white;
-        line-height: 25px;
-        font-size: 0.9em;
-        transition: width 0.4s ease-in-out;
-      }
-
-      #statusMessage {
-        margin-top: 20px;
-        padding: 15px;
-        border-radius: 8px;
-        background-color: #ffe0b2; /* Light orange for status */
-        color: #e65100;
-        border: 1px solid #ffcc80;
-        text-align: center;
-        font-weight: 600;
-        display: none; /* Hidden by default */
-      }
-
-      .ocr-preview-container {
-        margin-top: 20px;
-        padding: 15px;
-        background-color: #e6f7ff; /* Lighter blue for OCR preview */
-        border: 1px solid #91d5ff;
-        border-radius: 10px;
-        max-height: 200px;
-        overflow-y: auto;
-        white-space: pre-wrap; /* Preserve whitespace and line breaks */
-        font-size: 0.9em;
-        color: #333;
-        line-height: 1.4;
-      }
-
-      .ocr-text-toggle {
-        background-color: #6c757d; /* Grey for toggle button */
-        color: white;
-        padding: 5px 10px;
+      button {
+        background: #0066cc;
+        color: #fff;
+        padding: 0.6rem 1rem;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        font-size: 0.8em;
-        margin-top: 5px;
-        transition: background-color 0.3s ease;
       }
-      .ocr-text-toggle:hover {
-        background-color: #5a6268;
-      }
-
-      footer {
-        text-align: center;
-        padding: 20px;
-        margin-top: 40px;
-        border-top: 1px solid #eee;
-        color: #777;
-        font-size: 0.9em;
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 768px) {
-        .container {
-          margin: 10px;
-          padding: 15px;
-        }
-
-        header h1 {
-          font-size: 1.8em;
-        }
-
-        .drop-area {
-          padding: 30px;
-        }
-
-        .button-group {
-          flex-direction: column;
-          gap: 10px;
-        }
-        .button-group button {
-          width: 100%;
-        }
-
-        .file-item {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        .file-item img {
-          margin-bottom: 10px;
-          margin-right: 0;
-        }
-        .file-item .actions {
-          width: 100%;
-          justify-content: flex-end; /* Align actions to the right */
-          margin-top: 10px;
-        }
-        .file-item .move-buttons {
-          width: 100%;
-          display: flex;
-          justify-content: flex-start;
-          margin-top: 10px;
-        }
+      #output {
+        margin-top: 2rem;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <header>
-        <h1>
-          📄 JPG를 검색 가능한 PDF로
-          <span style="color: #28a745">간편하게</span> 변환!
-        </h1>
-        <p>
-          사진이나 스캔한 JPG 이미지에 OCR을 입혀 텍스트 검색 가능한 PDF로
-          만들어 보세요. 복잡한 과정 없이 누구나 쉽고 빠르게!
-        </p>
-      </header>
+    <header>
+      <h1>pic2searchpdf</h1>
+      <p>JPG을 PDF로 병합하고 OCR 텍스트 검색 가능하게 (한/영/일/러)</p>
+      <p><small>무료 · 로컬실행 · 개인정보 수집 없음</small></p>
+    </header>
 
-      <!-- AdSense Slot (Placeholder) -->
-      <div class="ad-container">광고 공간 (구글 애드센스)</div>
+    <input type="file" id="imageFiles" multiple accept="image/jpeg" />
+    <button onclick="processImages()">PDF 만들기 + OCR입히기</button>
 
-      <div class="drop-area" id="dropArea">
-        <p>여기에 JPG 파일을 끌어다 놓거나 클릭하여 선택하세요.</p>
-        <input
-          type="file"
-          id="fileInput"
-          accept="image/jpeg,image/png"
-          multiple
-        />
-      </div>
+    <div id="output"></div>
 
-      <div class="button-group">
-        <label for="languageSelect" style="font-weight: 600; color: #555"
-          >OCR 언어:</label
-        >
-        <select id="languageSelect" class="language-select">
-          <option value="kor">한국어</option>
-          <option value="eng">영어</option>
-          <option value="jpn">일본어</option>
-          <option value="rus">러시아어</option>
-          <option value="chi_sim">중국어 (간체)</option>
-        </select>
-        <button id="convertButton" disabled>PDF로 변환 및 OCR 적용</button>
-        <button id="clearButton" disabled>초기화</button>
-      </div>
-
-      <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-      <div id="statusMessage"></div>
-
-      <div id="fileList">
-        <!-- Uploaded files will be listed here -->
-      </div>
-    </div>
-
-    <footer>
-      <p>&copy; 2025 PicToSearchablePDF.app. All rights reserved.</p>
-      <p>간편하게, 빠르게, 무료로 JPG를 검색 가능한 PDF로 변환하세요!</p>
-    </footer>
-
-    <!-- jspdf and tesseract.js libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://unpkg.com/tesseract.js@5.0.3/dist/tesseract.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
 
     <script>
-      // DOM 요소 가져오기
-      const dropArea = document.getElementById("dropArea");
-      const fileInput = document.getElementById("fileInput");
-      const fileList = document.getElementById("fileList");
-      const convertButton = document.getElementById("convertButton");
-      const clearButton = document.getElementById("clearButton");
-      const progressBar = document.getElementById("progressBar");
-      const statusMessage = document.getElementById("statusMessage");
-      const languageSelect = document.getElementById("languageSelect");
+      const langs = ["kor", "eng", "jpn", "rus"];
+      const STORAGE_KEY = "pic2searchpdf-session";
 
-      // 파일 배열: File 객체와 OCR 텍스트, 고유 ID를 저장
-      let filesToProcess = [];
-      let tesseractWorker = null; // Tesseract.js 워커 인스턴스
+      async function processImages() {
+        const files = document.getElementById("imageFiles").files;
+        if (!files.length) return alert("이미지를 업로드해주세요.");
 
-      // 로컬 스토리지 키
-      const LOCAL_STORAGE_KEY = "pic2searchpdf_session";
+        const { PDFDocument, rgb } = PDFLib;
+        const pdfDoc = await PDFDocument.create();
+        const ocrResults = [];
 
-      /**
-       * 상태 메시지를 표시하거나 숨깁니다.
-       * @param {string} message - 표시할 메시지.
-       * @param {string} type - 'success', 'error', 'info', 'warning' (스타일 변경용).
-       */
-      function showStatusMessage(message, type = "info") {
-        statusMessage.textContent = message;
-        statusMessage.style.display = "block";
-        statusMessage.style.backgroundColor = ""; // Reset
-        statusMessage.style.color = ""; // Reset
-        statusMessage.style.borderColor = ""; // Reset
-
-        switch (type) {
-          case "success":
-            statusMessage.style.backgroundColor = "#d4edda";
-            statusMessage.style.color = "#155724";
-            statusMessage.style.borderColor = "#c3e6cb";
-            break;
-          case "error":
-            statusMessage.style.backgroundColor = "#f8d7da";
-            statusMessage.style.color = "#721c24";
-            statusMessage.style.borderColor = "#f5c6cb";
-            break;
-          case "warning":
-            statusMessage.style.backgroundColor = "#ffe0b2";
-            statusMessage.style.color = "#e65100";
-            statusMessage.style.borderColor = "#ffcc80";
-            break;
-          case "info":
-          default:
-            statusMessage.style.backgroundColor = "#e6f7ff";
-            statusMessage.style.color = "#1890ff";
-            statusMessage.style.borderColor = "#91d5ff";
-            break;
-        }
-      }
-
-      /**
-       * 상태 메시지를 숨깁니다.
-       */
-      function hideStatusMessage() {
-        statusMessage.style.display = "none";
-      }
-
-      /**
-       * 파일 목록 UI를 업데이트합니다.
-       */
-      function renderFileList() {
-        fileList.innerHTML = "";
-        if (filesToProcess.length === 0) {
-          showStatusMessage(
-            "JPG 파일을 끌어다 놓거나 선택하여 시작하세요.",
-            "info"
-          );
-          convertButton.disabled = true;
-          clearButton.disabled = true;
-          return;
-        }
-
-        hideStatusMessage();
-        convertButton.disabled = false;
-        clearButton.disabled = false;
-
-        filesToProcess.forEach((fileObj, index) => {
-          const itemDiv = document.createElement("div");
-          itemDiv.className = "file-item";
-          itemDiv.draggable = true; // Make draggable for reordering
-          itemDiv.dataset.id = fileObj.id; // Store unique ID for reordering
-
-          const img = document.createElement("img");
-          img.src = fileObj.previewUrl;
-          img.alt = fileObj.file.name;
-
-          const infoDiv = document.createElement("div");
-          infoDiv.className = "file-info";
-          const pName = document.createElement("p");
-          pName.textContent = `${fileObj.file.name} (${(
-            fileObj.file.size /
-            1024 /
-            1024
-          ).toFixed(2)} MB)`;
-          infoDiv.appendChild(pName);
-
-          // OCR 텍스트 미리보기
-          const ocrPreviewDiv = document.createElement("div");
-          ocrPreviewDiv.className = "ocr-preview-container";
-          ocrPreviewDiv.style.display = "none"; // Hidden by default
-          ocrPreviewDiv.textContent =
-            fileObj.ocrText || "OCR 텍스트를 불러오거나 처리 중입니다...";
-
-          const toggleOcrButton = document.createElement("button");
-          toggleOcrButton.className = "ocr-text-toggle";
-          toggleOcrButton.textContent = "OCR 텍스트 보기";
-          toggleOcrButton.onclick = () => {
-            ocrPreviewDiv.style.display =
-              ocrPreviewDiv.style.display === "none" ? "block" : "none";
-            toggleOcrButton.textContent =
-              ocrPreviewDiv.style.display === "none"
-                ? "OCR 텍스트 보기"
-                : "OCR 텍스트 숨기기";
-          };
-
-          if (fileObj.ocrText) {
-            infoDiv.appendChild(toggleOcrButton);
-            infoDiv.appendChild(ocrPreviewDiv);
-          }
-
-          const actionsDiv = document.createElement("div");
-          actionsDiv.className = "actions";
-
-          const moveButtonsDiv = document.createElement("div");
-          moveButtonsDiv.className = "move-buttons";
-
-          const moveUpButton = document.createElement("button");
-          moveUpButton.textContent = "▲ 위로";
-          moveUpButton.onclick = () => moveFile(index, -1);
-          moveUpButton.disabled = index === 0;
-
-          const moveDownButton = document.createElement("button");
-          moveDownButton.textContent = "▼ 아래로";
-          moveDownButton.onclick = () => moveFile(index, 1);
-          moveDownButton.disabled = index === filesToProcess.length - 1;
-
-          moveButtonsDiv.appendChild(moveUpButton);
-          moveButtonsDiv.appendChild(moveDownButton);
-
-          const removeButton = document.createElement("button");
-          removeButton.textContent = "삭제";
-          removeButton.onclick = () => removeFile(fileObj.id);
-
-          actionsDiv.appendChild(moveButtonsDiv);
-          actionsDiv.appendChild(removeButton);
-
-          itemDiv.appendChild(img);
-          itemDiv.appendChild(infoDiv);
-          itemDiv.appendChild(actionsDiv);
-          fileList.appendChild(itemDiv);
-        });
-
-        saveSession(); // UI 렌더링 후 세션 저장
-      }
-
-      /**
-       * 파일을 추가합니다.
-       * @param {File[]} files - 추가할 File 객체 배열.
-       */
-      async function addFiles(files) {
-        for (const file of files) {
-          if (
-            file.type.startsWith("image/jpeg") ||
-            file.type.startsWith("image/png")
-          ) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const uniqueId = crypto.randomUUID(); // 고유 ID 생성
-              filesToProcess.push({
-                id: uniqueId,
-                file: file,
-                previewUrl: e.target.result,
-                ocrText: null, // 초기 OCR 텍스트는 null
-                isProcessed: false, // OCR 처리 여부
-              });
-              renderFileList(); // 파일 추가 후 UI 업데이트
-            };
+        for (let file of files) {
+          const reader = new FileReader();
+          const imageData = await new Promise((res) => {
+            reader.onload = () => res(reader.result);
             reader.readAsDataURL(file);
-          } else {
-            showStatusMessage(
-              `'${file.name}' 파일은 JPG 또는 PNG 이미지가 아닙니다.`,
-              "warning"
-            );
-          }
-        }
-      }
+          });
 
-      /**
-       * 파일을 목록에서 제거합니다.
-       * @param {string} id - 제거할 파일의 고유 ID.
-       */
-      function removeFile(id) {
-        filesToProcess = filesToProcess.filter((fileObj) => fileObj.id !== id);
-        renderFileList();
-      }
-
-      /**
-       * 파일 순서를 변경합니다.
-       * @param {number} currentIndex - 현재 파일 인덱스.
-       * @param {number} direction - 이동 방향 (1 for down, -1 for up).
-       */
-      function moveFile(currentIndex, direction) {
-        const newIndex = currentIndex + direction;
-        if (newIndex >= 0 && newIndex < filesToProcess.length) {
-          const [movedItem] = filesToProcess.splice(currentIndex, 1);
-          filesToProcess.splice(newIndex, 0, movedItem);
-          renderFileList();
-        }
-      }
-
-      /**
-       * 모든 파일을 초기화합니다.
-       */
-      function clearAllFiles() {
-        filesToProcess = [];
-        progressBar.style.width = "0%";
-        progressBar.textContent = "";
-        renderFileList();
-        localStorage.removeItem(LOCAL_STORAGE_KEY); // 로컬 스토리지에서도 삭제
-        showStatusMessage(
-          "모든 파일이 초기화되었습니다. 다시 시작하세요.",
-          "info"
-        );
-      }
-
-      /**
-       * 로컬 스토리지에 현재 세션 정보를 저장합니다.
-       * 실제 파일 데이터는 저장하지 않고, 파일 메타데이터와 OCR 텍스트만 저장합니다.
-       */
-      function saveSession() {
-        const sessionData = filesToProcess.map((fileObj) => ({
-          id: fileObj.id,
-          fileName: fileObj.file.name,
-          fileSize: fileObj.file.size,
-          fileType: fileObj.file.type,
-          lastModified: fileObj.file.lastModified,
-          ocrText: fileObj.ocrText, // OCR 처리된 텍스트 저장
-        }));
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(sessionData));
-      }
-
-      /**
-       * 로컬 스토리지에서 세션 정보를 로드합니다.
-       * 사용자에게 파일을 다시 업로드하도록 요청하고, 저장된 OCR 텍스트를 재사용합니다.
-       */
-      async function loadSession() {
-        const storedSession = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (storedSession) {
-          try {
-            const sessionData = JSON.parse(storedSession);
-            if (sessionData.length > 0) {
-              showStatusMessage(
-                "이전 세션이 감지되었습니다. 파일들을 다시 선택하시면 OCR 텍스트가 복구됩니다.",
-                "info"
-              );
-              // 이전 세션의 파일 목록을 재구성 (파일 객체 없이 메타데이터만)
-              filesToProcess = sessionData.map((data) => ({
-                id: data.id,
-                file: new File([], data.fileName, {
-                  type: data.fileType,
-                  lastModified: data.lastModified,
-                }), // 더미 File 객체
-                previewUrl: null, // 미리보기 URL은 재업로드 시 생성
-                ocrText: data.ocrText,
-                isProcessed: !!data.ocrText, // OCR 텍스트가 있으면 처리된 것으로 간주
-              }));
-              renderFileList(); // UI 업데이트
-
-              // 사용자에게 실제 파일 재업로드 유도
-              setTimeout(() => {
-                showStatusMessage(
-                  "OCR 처리를 위해 파일을 다시 끌어다 놓거나 선택해주세요. 기존 OCR 텍스트는 자동으로 매칭됩니다.",
-                  "warning"
-                );
-              }, 1000);
-            }
-          } catch (e) {
-            console.error("Failed to load session from local storage:", e);
-            localStorage.removeItem(LOCAL_STORAGE_KEY);
-          }
-        }
-      }
-
-      /**
-       * Tesseract.js 워커의 진행 상황을 업데이트하는 로거 함수입니다.
-       * 이 함수는 메인 스레드에서 실행되며, DOM 요소에 직접 접근합니다.
-       * @param {string} status - Tesseract.js 작업 상태 (예: 'recognizing', 'loading lang data').
-       * @param {number} progress - 현재 작업 진행률 (0.0 ~ 1.0).
-       * @param {string} jobId - 현재 OCR 작업의 고유 ID.
-       * @param {number} totalImages - 총 처리할 이미지 수.
-       * @param {string} lang - 현재 선택된 OCR 언어.
-       */
-      function updateProgressBar(status, progress, jobId, totalImages, lang) {
-        if (status === "recognizing") {
-          const prog = (progress * 100).toFixed(1);
-          progressBar.style.width = `${prog}%`;
-          progressBar.textContent = `OCR 진행 중: ${prog}% (${
-            jobId.split("-")[1]
-          }/${totalImages} 이미지)`;
-        } else if (status === "loading lang data") {
-          progressBar.textContent = `언어 데이터 로드 중... ${lang} (${(
-            progress * 100
-          ).toFixed(1)}%)`;
-          progressBar.style.width = `${progress * 100}%`;
-        } else if (status === "initializing api") {
-          progressBar.textContent = `API 초기화 중... (${(
-            progress * 100
-          ).toFixed(1)}%)`;
-          progressBar.style.width = `${progress * 100}%`;
-        }
-      }
-
-      /**
-       * PDF 생성 및 OCR 적용 로직입니다.
-       */
-      async function convertToPdfWithOcr() {
-        if (filesToProcess.length === 0) {
-          showStatusMessage(
-            "먼저 JPG 또는 PNG 파일을 추가해주세요.",
-            "warning"
+          const imgBytes = await fetch(imageData).then((res) =>
+            res.arrayBuffer()
           );
-          return;
+          const img = await pdfDoc.embedJpg(imgBytes);
+          const page = pdfDoc.addPage([img.width, img.height]);
+          page.drawImage(img, {
+            x: 0,
+            y: 0,
+            width: img.width,
+            height: img.height,
+          });
+
+          const text = await Tesseract.recognize(imgBytes, langs.join("+"), {
+            logger: (m) => console.log(m),
+          });
+          ocrResults.push(text.data.text);
         }
 
-        // 워커가 이미 있다면 종료하고 새로 시작
-        if (tesseractWorker) {
-          await tesseractWorker.terminate();
-        }
-
-        // Tesseract.js 워커 생성
-        showStatusMessage("OCR 워커를 초기화 중입니다...", "info");
-        tesseractWorker = await Tesseract.createWorker({
-          // logger 함수를 단순화하여 직접 DOM에 접근하지 않도록 합니다.
-          // 대신 필요한 데이터를 추출하여 전역 유틸리티 함수에 전달합니다.
-          logger: (m) => {
-            updateProgressBar(
-              m.status,
-              m.progress,
-              m.jobId,
-              filesToProcess.length,
-              languageSelect.value
-            );
-          },
+        const metadataText = ocrResults.join("\n\n");
+        const textPage = pdfDoc.addPage([612, 792]);
+        textPage.drawText(metadataText.slice(0, 4000), {
+          x: 50,
+          y: 750,
+          size: 10,
+          maxWidth: 500,
+          color: rgb(0, 0, 0),
         });
 
-        try {
-          // 워커 로드 및 언어 설정
-          await tesseractWorker.load();
-          await tesseractWorker.loadLanguage(languageSelect.value);
-          await tesseractWorker.initialize(languageSelect.value);
+        const pdfBytes = await pdfDoc.save();
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify([...files].map((f) => f.name))
+        );
 
-          showStatusMessage("PDF 변환 및 OCR을 시작합니다...", "info");
-          convertButton.disabled = true;
-          clearButton.disabled = true;
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "merged_ocr.pdf";
+        link.click();
 
-          const { jsPDF } = window.jspdf;
-          const doc = new jsPDF();
-
-          for (let i = 0; i < filesToProcess.length; i++) {
-            const fileObj = filesToProcess[i];
-
-            // 미리보기 URL이 없는 경우 (로컬 스토리지 로드 후 재업로드 대기 상태), 파일 미리보기 로드
-            if (
-              !fileObj.previewUrl ||
-              fileObj.previewUrl.startsWith("data:image/svg+xml")
-            ) {
-              // svg+xml은 더미 이미지.
-              const reader = new FileReader();
-              reader.onload = async (e) => {
-                fileObj.previewUrl = e.target.result; // 실제 이미지 데이터 로드
-                await processImageAndAddToPdf(
-                  fileObj,
-                  doc,
-                  i,
-                  filesToProcess.length
-                );
-                // 모든 이미지 처리 후 PDF 저장
-                if (i === filesToProcess.length - 1) {
-                  doc.save(`searchable_document_${Date.now()}.pdf`);
-                  showStatusMessage(
-                    "PDF 변환 및 OCR 적용이 완료되었습니다!",
-                    "success"
-                  );
-                  convertButton.disabled = false;
-                  clearButton.disabled = false;
-                  progressBar.style.width = "100%";
-                  progressBar.textContent = "완료!";
-                }
-              };
-              reader.readAsDataURL(fileObj.file);
-            } else {
-              await processImageAndAddToPdf(
-                fileObj,
-                doc,
-                i,
-                filesToProcess.length
-              );
-              // 모든 이미지 처리 후 PDF 저장
-              if (i === filesToProcess.length - 1) {
-                doc.save(`searchable_document_${Date.now()}.pdf`);
-                showStatusMessage(
-                  "PDF 변환 및 OCR 적용이 완료되었습니다!",
-                  "success"
-                );
-                convertButton.disabled = false;
-                clearButton.disabled = false;
-                progressBar.style.width = "100%";
-                progressBar.textContent = "완료!";
-              }
-            }
-          }
-        } catch (error) {
-          console.error("PDF 변환 및 OCR 오류:", error);
-          showStatusMessage(
-            "PDF 변환 및 OCR 중 오류가 발생했습니다. 다시 시도해주세요.",
-            "error"
-          );
-          convertButton.disabled = false;
-          clearButton.disabled = false;
-          progressBar.style.width = "0%";
-          progressBar.textContent = "";
-        } finally {
-          if (tesseractWorker) {
-            await tesseractWorker.terminate(); // 작업 완료 후 워커 종료
-          }
-        }
+        document.getElementById("output").innerText = "✅ PDF 생성 완료";
       }
-
-      // 이벤트 리스너 설정
-      dropArea.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropArea.classList.add("highlight");
-      });
-
-      dropArea.addEventListener("dragleave", () => {
-        dropArea.classList.remove("highlight");
-      });
-
-      dropArea.addEventListener("drop", (e) => {
-        e.preventDefault();
-        dropArea.classList.remove("highlight");
-        addFiles(e.dataTransfer.files);
-      });
-
-      dropArea.addEventListener("click", () => {
-        fileInput.click();
-      });
-
-      fileInput.addEventListener("change", (e) => {
-        addFiles(e.target.files);
-      });
-
-      convertButton.addEventListener("click", convertToPdfWithOcr);
-      clearButton.addEventListener("click", clearAllFiles);
-
-      // 페이지 로드 시 로컬 스토리지에서 세션 로드
-      window.onload = () => {
-        loadSession();
-      };
-
-      // 드래그 앤 드롭 재정렬 기능 (간단 구현)
-      let draggedItem = null;
-
-      fileList.addEventListener("dragstart", (e) => {
-        draggedItem = e.target.closest(".file-item");
-        if (draggedItem) {
-          draggedItem.classList.add("dragging");
-          e.dataTransfer.setData("text/plain", draggedItem.dataset.id);
-        }
-      });
-
-      fileList.addEventListener("dragend", () => {
-        if (draggedItem) {
-          draggedItem.classList.remove("dragging");
-          draggedItem = null;
-        }
-      });
-
-      fileList.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        const targetItem = e.target.closest(".file-item");
-        if (targetItem && targetItem !== draggedItem) {
-          const rect = targetItem.getBoundingClientRect();
-          const next = (e.clientY - rect.top) / (rect.bottom - rect.top) > 0.5;
-          fileList.insertBefore(
-            draggedItem,
-            (next && targetItem.nextSibling) || targetItem
-          );
-        }
-      });
-
-      fileList.addEventListener("drop", (e) => {
-        e.preventDefault();
-        if (draggedItem) {
-          const droppedId = draggedItem.dataset.id;
-          const newOrderIds = Array.from(fileList.children).map(
-            (item) => item.dataset.id
-          );
-
-          // 새로운 순서에 맞춰 filesToProcess 배열 업데이트
-          const newFilesToProcess = [];
-          newOrderIds.forEach((id) => {
-            const originalFile = filesToProcess.find(
-              (fileObj) => fileObj.id === id
-            );
-            if (originalFile) {
-              newFilesToProcess.push(originalFile);
-            }
-          });
-          filesToProcess = newFilesToProcess;
-          saveSession(); // 순서 변경 후 세션 저장
-        }
-      });
     </script>
   </body>
 </html>
