@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pic2searchpdf.netlify.app/sitemap.xml
