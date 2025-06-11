@@ -717,26 +717,29 @@
       /**
        * Tesseract.js 워커의 진행 상황을 업데이트하는 로거 함수입니다.
        * 이 함수는 메인 스레드에서 실행되며, DOM 요소에 직접 접근합니다.
-       * @param {object} m - Tesseract.js 워커로부터 받은 메시지 객체.
+       * @param {string} status - Tesseract.js 작업 상태 (예: 'recognizing', 'loading lang data').
+       * @param {number} progress - 현재 작업 진행률 (0.0 ~ 1.0).
+       * @param {string} jobId - 현재 OCR 작업의 고유 ID.
+       * @param {number} totalImages - 총 처리할 이미지 수.
+       * @param {string} lang - 현재 선택된 OCR 언어.
        */
-      function tesseractProgressLogger(m) {
-        // console.log(m); // Tesseract 진행 상황 로깅
-        if (m.status === "recognizing") {
-          const progress = (m.progress * 100).toFixed(1);
-          progressBar.style.width = `${progress}%`;
-          progressBar.textContent = `OCR 진행 중: ${progress}% (${
-            m.jobId.split("-")[1]
-          }/${filesToProcess.length} 이미지)`;
-        } else if (m.status === "loading lang data") {
-          progressBar.textContent = `언어 데이터 로드 중... ${
-            languageSelect.value
-          } (${(m.progress * 100).toFixed(1)}%)`;
-          progressBar.style.width = `${m.progress * 100}%`;
-        } else if (m.status === "initializing api") {
-          progressBar.textContent = `API 초기화 중... (${(
-            m.progress * 100
+      function updateProgressBar(status, progress, jobId, totalImages, lang) {
+        if (status === "recognizing") {
+          const prog = (progress * 100).toFixed(1);
+          progressBar.style.width = `${prog}%`;
+          progressBar.textContent = `OCR 진행 중: ${prog}% (${
+            jobId.split("-")[1]
+          }/${totalImages} 이미지)`;
+        } else if (status === "loading lang data") {
+          progressBar.textContent = `언어 데이터 로드 중... ${lang} (${(
+            progress * 100
           ).toFixed(1)}%)`;
-          progressBar.style.width = `${m.progress * 100}%`;
+          progressBar.style.width = `${progress * 100}%`;
+        } else if (status === "initializing api") {
+          progressBar.textContent = `API 초기화 중... (${(
+            progress * 100
+          ).toFixed(1)}%)`;
+          progressBar.style.width = `${progress * 100}%`;
         }
       }
 
@@ -760,7 +763,17 @@
         // Tesseract.js 워커 생성
         showStatusMessage("OCR 워커를 초기화 중입니다...", "info");
         tesseractWorker = await Tesseract.createWorker({
-          logger: tesseractProgressLogger, // 분리된 로거 함수 사용
+          // logger 함수를 단순화하여 직접 DOM에 접근하지 않도록 합니다.
+          // 대신 필요한 데이터를 추출하여 전역 유틸리티 함수에 전달합니다.
+          logger: (m) => {
+            updateProgressBar(
+              m.status,
+              m.progress,
+              m.jobId,
+              filesToProcess.length,
+              languageSelect.value
+            );
+          },
         });
 
         try {
